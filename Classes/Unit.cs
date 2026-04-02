@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Classes
 {
-    internal class Unit
+    public class Unit
     {
         private float health = 100f; // поле здоровья, значение возвращается через свойство
 
         public string Name { get ; }
-        public int Damage {  get; }
+        public Interval Damage {  get; private set; }
         public float Armor { get;}
 
         public float Health
@@ -26,9 +26,21 @@ namespace Classes
         public Unit(string name)
         {
             this.Name = name;
-            Damage = 5;
+            Damage = new Interval(0, 5);
             Armor = 0.6f;
             
+        }
+
+        public Unit(string name, int minDamage, int maxDamage)
+        {
+            if(minDamage < 0)
+            {
+                Console.WriteLine("Min Damage must be >= 0. Value was corrected to 0");
+                minDamage = 0;
+
+            }
+
+            Damage = new Interval(minDamage, maxDamage);
         }
 
 
